@@ -1,0 +1,43 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="twitter-widget">
+  <template>
+    <style>
+      :host {
+      }
+    </style>
+
+    <a class="twitter-timeline" href$="[[_geturl(username)]]" data-widget-id$="[[widgetid]]"></a>
+  </template>
+  <script>
+    (function () {
+      
+      Polymer({
+        is: 'twitter-widget',
+        properties: {
+          username: {
+            type: String,
+            notify: true,
+            value: 'polymer'
+          },
+          widgetid:{
+            type: String,
+            notify: true,
+            value: '665356810472165376'
+          }
+        },
+        observers: [
+          '_updateParams(username,widgetid)'
+        ],
+        _load: function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}},
+        _geturl: function(u){
+          return 'https://twitter.com/'+u;
+        },
+        _updateParams: function(username,widgetid){
+          this._load(document,'script','twitter-wjs');
+        }
+
+      });
+    })();
+  </script>
+</dom-module>
